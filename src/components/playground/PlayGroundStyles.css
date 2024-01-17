@@ -1,36 +1,53 @@
 .main__playgroundBlock {
     display: flex;
-    flex-direction: column-reverse; /* Строки будут добавляться сверху */
+    flex-direction: column-reverse;
     align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .key-row {
     display: flex;
-    margin: 5px 0;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .key {
-    width: 50px;
+    width: 25%;
     height: 150px;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin: 2px;
     border: none;
     outline: none;
 }
 
-.key.white {
-    background-color: #ffffff;
+.white {
+    background-color: white;
 }
 
-.key.black {
-    background-color: #000000;
+.black {
+    background-color: black;
 }
 
-.key.white:hover {
-    background-color: #f0f0f0;
+.coin-counter {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 24px;
 }
 
-.key.black:hover {
-    background-color: #444444;
+.green, .green-bar {
+    background-color: green;
+}
+
+.timer {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+}
+
+.green-bar {
+    background-color: green;
+    height: 5px;
+    width: 100%;
 }
