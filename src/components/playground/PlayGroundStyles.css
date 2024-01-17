@@ -1,0 +1,36 @@
+.main__playgroundBlock {
+    display: flex;
+    flex-direction: column-reverse; /* Строки будут добавляться сверху */
+    align-items: center;
+}
+
+.key-row {
+    display: flex;
+    margin: 5px 0;
+}
+
+.key {
+    width: 50px;
+    height: 150px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+.key.white {
+    background-color: #ffffff;
+}
+
+.key.black {
+    background-color: #000000;
+}
+
+.key.white:hover {
+    background-color: #f0f0f0;
+}
+
+.key.black:hover {
+    background-color: #444444;
+}

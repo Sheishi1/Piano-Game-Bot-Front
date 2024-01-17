@@ -13,7 +13,7 @@ const Selectmode = () => {
     return (
         <div className={`main__selectModeBlock`}>
             <div className="selectModeBtnsBlock">
-                <SelectModeBtn className={`selectModeBtn`}><img src={playSvgIcon} alt="play" style={{marginRight: 10}}/> Играть</SelectModeBtn>
+                <SelectModeBtn className={`selectModeBtn`}><img src={playSvgIcon} alt="play" style={{marginRight: 10}}/><a href="/playground"> Играть</a></SelectModeBtn>
                 <SelectModeBtn className={`selectModeBtn`}><img src={cupSvgIcon} alt="cup" style={{marginRight: 10}}/> Рейтинг</SelectModeBtn>
                 <SelectModeBtn className={`selectModeBtn`}><img src={shopSvgIcon} alt="shop" style={{marginRight: 10}}/>Магазин</SelectModeBtn>
             </div>

@@ -8,7 +8,6 @@ const Header = () => {
 
     return (
         <div className={`header`}>
-            <img src={user?.image} alt="userImage"/>
             <span className={`userName`}>
                 {user?.username}
             </span>
