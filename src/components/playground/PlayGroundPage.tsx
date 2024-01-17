@@ -38,7 +38,7 @@ const generateRow = (isGreen = false) => {
 
 const calculateInitialRows = () => {
     const screenHeight = window.innerHeight;
-    const keyHeight = 150;
+    const keyHeight = 200;
     const numRows = Math.ceil(screenHeight / keyHeight);
     return Array.from({ length: numRows }, generateRow);
 };
@@ -50,6 +50,8 @@ const PlayGroundPage = () => {
     const [initialTimer, setInitialTimer] = useState(10);
     const [timer, setTimer] = useState(initialTimer);
     const [gameOver, setGameOver] = useState(false);
+    const [greenRowPassed, setGreenRowPassed] = useState(false);
+    const [crossings, setCrossings] = useState(0); // новый счетчик пересечений
 
     const handleKeyClick = (color: string, keyIndex: any) => {
         if (gameOver) return;
@@ -58,8 +60,9 @@ const PlayGroundPage = () => {
             setBlackKeysClicked(oldCount => {
                 let isGreen = oldCount === 9;
                 if (isGreen) {
-                    setInitialTimer(oldTimer => oldTimer - 1);
-                    setKeyRows([generateRow(true), ...keyRows.slice(0, -1)]);
+                    setCrossings(oldCrossings => oldCrossings + 1); // увеличиваем счетчик пересечений
+                    setTimer(initialTimer - crossings); // устанавливаем таймер на начальное значение минус количество пересечений
+                    setGreenRowPassed(true);
                 } else {
                     setKeyRows([generateRow(), ...keyRows.slice(0, -1)]);
                 }
@@ -69,11 +72,6 @@ const PlayGroundPage = () => {
             setGameOver(true);
         }
     };
-
-    useEffect(() => {
-        setTimer(initialTimer);
-    }, [initialTimer]);
-
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -90,7 +88,7 @@ const PlayGroundPage = () => {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [initialTimer]);
+    }, [timer]);
 
     useEffect(() => {
         if (gameOver) {
@@ -100,10 +98,14 @@ const PlayGroundPage = () => {
             setInitialTimer(10);
             setTimer(10);
             setGameOver(false);
+        } else if (greenRowPassed) {
+            setKeyRows([generateRow(), ...keyRows.slice(0, -1)]);
+            setCoins(oldCoins => oldCoins + 1);
+            setGreenRowPassed(false);
         } else if (blackKeysClicked === 0 && keyRows[0][0] === 'green') {
             setCoins(oldCoins => oldCoins + 1);
         }
-    }, [gameOver, blackKeysClicked]);
+    }, [gameOver, blackKeysClicked, greenRowPassed]);
 
     const GreenBar = () => {
         return (
@@ -111,10 +113,19 @@ const PlayGroundPage = () => {
         );
     };
 
+    // @ts-ignore
+    const PianoHeader = ({ coins, timer }) => {
+        return (
+            <div className="pianoHeader">
+                <div className="coin-counter">Coins: {coins}</div>
+                <div className="timer">Time: {timer}</div>
+            </div>
+        );
+    };
+
     return (
         <div className="main__playgroundBlock">
-            <div className="coin-counter">Coins: {coins}</div>
-            <div className="timer">Time: {timer}</div>
+            <PianoHeader coins={coins} timer={timer} />
             {keyRows.slice().reverse().map((row, index) => (
                 row[0] === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} row={row} onClick={handleKeyClick} />
             ))}

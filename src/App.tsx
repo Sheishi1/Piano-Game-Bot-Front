@@ -18,7 +18,6 @@ function App() {
 
   return (
     <div className="App">
-        <Header />
         <Routes>
             <Route index element={ <WelcomePage /> } />
             <Route path={'playground'} element={ <PlayGroundPage /> } />
