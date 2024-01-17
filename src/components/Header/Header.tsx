@@ -1,16 +1,14 @@
 import React from 'react';
 import CloseBtn from "../ui/closeButton/closeBtn";
 import {useTelegram} from "../../hooks/useTelegram";
-// @ts-ignore
-const tg = window.Telegram.WebApp
 
 
 const Header = () => {
-    const {user, onClose} = useTelegram()
+    const {user} = useTelegram()
 
     return (
         <div className={`header`}>
-            <CloseBtn onClick={onClose} className={`closeBtn`}>Закрыть</CloseBtn>
+            <img src={user?.image} alt="userImage"/>
             <span className={`userName`}>
                 {user?.username}
             </span>
