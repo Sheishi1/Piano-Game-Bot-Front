@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseBtn from "../welcome/buttons/closeButton/closeBtn";
+import CloseBtn from "../ui/closeButton/closeBtn";
 import {useTelegram} from "../../hooks/useTelegram";
 // @ts-ignore
 const tg = window.Telegram.WebApp
