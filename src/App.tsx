@@ -35,7 +35,7 @@ function App() {
 
     return (
     <div className="App">
-        <p>{data?.id}</p>
+        <h1 style={{color: "#fff"}}>{data?.id}</h1>
         <Routes>
             <Route index element={ <WelcomePage /> } />
             <Route path={'playground'} element={ <PlayGroundPage /> } />
