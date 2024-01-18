@@ -1,11 +1,13 @@
 import React from 'react';
+import "./TimeBar.css"
 
 // @ts-ignore
 const TimeBar = ({ timer, initialTimer }) => {
-    const percent = (timer / initialTimer) * 100;
+    const percentage = (timer / initialTimer) * 100;
     return (
         <div className="timer-bar">
-            <div className="timer-bar__fill" style={{width: `${percent}%`}} />
+            <div className="timer-bar-progress" style={{ width: `${percentage}%` }} />
+            <span>{timer}</span>
         </div>
     );
 };

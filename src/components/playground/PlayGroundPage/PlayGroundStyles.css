@@ -1,32 +1,53 @@
 .main__playgroundBlock {
-    margin-top: 5vh;
+    padding: 10px;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    height: 95vh;
+    height: 100vh;
     overflow: hidden;
 }
 
 .key-row {
     display: flex;
     justify-content: space-between;
+    margin: 2px;
     width: 100%;
 }
 
 .key {
     width: 25%;
     height: 200px;
-    margin: 2px;
     border: none;
     outline: none;
+    border-radius: 5px;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.key:active {
+    animation: pulse 0.2s ease;
 }
 
 .white {
-    background-color: white;
+    background: linear-gradient(#ffffff, #f8f8f8);
 }
 
 .black {
-    background: #000000;
+    background: linear-gradient(#000000, #101010);
+}
+
+.black:hover {
+    transition: .3s;
+    background: linear-gradient(#2f2f2f, #484848);
 }
 
 .green, .green-bar {
