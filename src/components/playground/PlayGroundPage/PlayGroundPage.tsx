@@ -28,12 +28,12 @@ const KeyRow = ({ row, onClick }) => {
 
 const generateRow = (isGreen = false) => {
     if (isGreen) {
-        return ['green'];
+        return [{ color: 'green', pressed: false }];
     }
 
-    let row = new Array(4).fill('white');
+    let row = new Array(4).fill({ color: 'white', pressed: false });
     let blackKeyIndex = Math.floor(Math.random() * 4);
-    row[blackKeyIndex] = 'black';
+    row[blackKeyIndex] = { color: 'black', pressed: false };
     return row;
 };
 
@@ -41,7 +41,7 @@ const calculateInitialRows = () => {
     const screenHeight = window.innerHeight;
     const keyHeight = 200;
     const numRows = Math.ceil(screenHeight / keyHeight);
-    return Array.from({ length: numRows }, generateRow);
+    return [...Array.from({ length: numRows - 1 }, generateRow), new Array(4).fill('grey')];
 };
 
 const PlayGroundPage = () => {
@@ -56,7 +56,7 @@ const PlayGroundPage = () => {
     const [showModal, setShowModal] = useState(false);
     let [finalBlackKeysClicked, setFinalBlackKeysClicked] = useState(0);
 
-    const handleKeyClick = (color: string, keyIndex: any) => {
+    const handleKeyClick = (color: string, keyIndex: any, rowIndex: any) => {
         if (gameOver) return;
 
         if (color === 'black') {
@@ -70,8 +70,17 @@ const PlayGroundPage = () => {
                         return newCrossings;
                     });
                     setGreenRowPassed(true);
+                    setKeyRows(oldRows => {
+                        const newRows = [...oldRows];
+                        newRows[rowIndex][keyIndex].pressed = true;
+                        return [generateRow(), generateRow(), ...newRows.slice(0, -1)]; // Generate two new rows
+                    });
                 } else {
-                    setKeyRows([generateRow(), ...keyRows.slice(0, -1)]);
+                    setKeyRows(oldRows => {
+                        const newRows = [...oldRows];
+                        newRows[rowIndex][keyIndex].pressed = true;
+                        return [generateRow(), ...newRows.slice(0, -1)];
+                    });
                 }
                 return isGreen ? 0 : oldCount + 1;
             });
@@ -80,6 +89,27 @@ const PlayGroundPage = () => {
         } else if (color === 'white') {
             setGameOver(true);
         }
+    };
+
+    // Измените компонент Key, чтобы изменить цвет кнопки на серый, если ключ был нажат
+    // @ts-ignore
+    const Key = ({ color, onClick, pressed }) => {
+        const buttonColor = pressed ? 'grey' : color;
+        return (
+            <button className={`key ${buttonColor}`} onClick={onClick} />
+        );
+    };
+
+// Передайте свойство pressed в компонент Key в компоненте KeyRow
+    // @ts-ignore
+    const KeyRow = ({ row, onClick, rowIndex }) => {
+        return (
+            <div className="key-row">
+                {row.map((key: any, index: React.Key | null | undefined) => (
+                    <Key key={index} color={key.color} onClick={() => onClick(key.color, index, rowIndex)} pressed={key.pressed} />
+                ))}
+            </div>
+        );
     };
 
 
@@ -123,7 +153,8 @@ const PlayGroundPage = () => {
         setCoins(0);
         setFinalBlackKeysClicked(0);
         setShowModal(false);
-        setGameOver(false)
+        setGameOver(false);
+        setKeyRows(calculateInitialRows()); // reset keyRows state
     };
 
     const GreenBar = () => {
@@ -147,10 +178,10 @@ const PlayGroundPage = () => {
             <PianoHeader coins={coins} timer={timer} />
             {showModal && <GameOverModal restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
             {keyRows.slice().reverse().map((row, index) => (
-                row[0] === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} row={row} onClick={handleKeyClick} />
+                row[0].color === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} />
             ))}
         </div>
     );
 };
 
-export default PlayGroundPage;
+export default PlayGroundPage

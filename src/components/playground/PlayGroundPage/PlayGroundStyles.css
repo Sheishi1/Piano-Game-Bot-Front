@@ -26,7 +26,7 @@
 }
 
 .black {
-    background-color: black;
+    background: #000000;
 }
 
 .green, .green-bar {
@@ -41,6 +41,7 @@
 }
 
 .green-bar {
+    position: fixed;
     background-color: #35d035;
     height: 1px;
     width: 100%;
