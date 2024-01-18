@@ -3,7 +3,7 @@ import './App.css';
 import Header from "./components/Header/Header";
 import {useTelegram} from "./hooks/useTelegram";
 import {Route, Routes} from 'react-router-dom'
-import PlayGroundPage from "./components/playground/PlayGroundPage";
+import PlayGroundPage from "./components/playground/PlayGroundPage/PlayGroundPage";
 import WelcomePage from "./components/welcome/welcomePage/WelcomePage";
 
 function App() {

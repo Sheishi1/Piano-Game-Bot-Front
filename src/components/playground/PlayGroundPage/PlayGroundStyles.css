@@ -15,7 +15,7 @@
 
 .key {
     width: 25%;
-    height: 180px;
+    height: 200px;
     margin: 2px;
     border: none;
     outline: none;
@@ -42,7 +42,7 @@
 
 .green-bar {
     background-color: #35d035;
-    height: 5px;
+    height: 1px;
     width: 100%;
 }
 
