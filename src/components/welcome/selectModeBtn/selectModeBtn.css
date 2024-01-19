@@ -6,13 +6,16 @@
     width: 100%;
     margin-bottom: 20px;
     padding: 15px 20px;
-    color: #fff;
+    color: #000000;
     font-size: 16px;
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
     border-radius: 10px;
     outline: none;
     border: 2px solid #fff;
-    background: var(--tg-theme-button-color);
-    color: var(--tg-theme-button-text-color);
+    background: #ffffff;
+}
+
+.selectModeBtn a {
+    text-decoration: none;
 }

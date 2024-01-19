@@ -8,8 +8,10 @@ import axios from "axios";
 const {onToggleButton, tg, user} = useTelegram()
 
 interface Data {
-    id: string;
-    userName: string;
+    userId: number | null;
+    userName: string | null;
+    coins: number | null,
+    points: number | null,
 }
 
 function App() {
@@ -19,12 +21,12 @@ function App() {
         const fetchData = async () => {
             try {
                 tg.ready()
+                console.log(user.userName, user.id)
                 const response = await axios.post(
                     'http://localhost:5000/api/user/auth',
-                    {id: user?.id, userName: user?.userName}
+                    {userId: user?.id, userName: user?.userName}
                 )
                 setData(response.data)
-                return response;
             } catch (e) {
                 console.log(e)
             }
@@ -34,10 +36,11 @@ function App() {
     }, []);
 
     return (
+
     <div className="App">
-        <h1 style={{color: "#fff"}}>{data?.id}</h1>
         <Routes>
-            <Route index element={ <WelcomePage /> } />
+            <Route index element={ <WelcomePage userName={data?.userName!} // @ts-ignore
+                                                coins={data?.coins!} points={data?.points!} /> } />
             <Route path={'playground'} element={ <PlayGroundPage /> } />
         </Routes>
     </div>
