@@ -23,7 +23,7 @@ function App() {
             try {
                 const response = await axios.post(
                     'http://78.155.197.115:5000/api/user/auth',
-                    {userId: user?.id, userName: user?.userName}
+                    {userId: 1223213, userName: user?.userName}
                 )
                 console.log(response.data)
                 setData(response.data)
