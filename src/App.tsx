@@ -23,8 +23,11 @@ function App() {
                 tg.ready()
                 console.log(user.userName, user.id)
                 const response = await axios.post(
-                    'http://78.155.197.115/api/user/auth',
-                    {userId: user?.id, userName: user?.userName}
+                    'http://78.155.197.115:5000/api/user/auth',
+                    {
+                        userId: user?.id,
+                        userName: user?.userName
+                    }
                 )
                 setData(response.data)
             } catch (e) {
@@ -33,7 +36,7 @@ function App() {
         }
 
         fetchData();
-    }, []);
+    }, [data, tg, user]);
 
     return (
 
