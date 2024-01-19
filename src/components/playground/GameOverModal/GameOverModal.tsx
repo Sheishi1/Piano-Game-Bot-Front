@@ -1,14 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./GameOverModal.css";
 // @ts-ignore
 import svgHomeIcon from '../../../assets/house-svgrepo-com (1).svg'
 // @ts-ignore
 import svgReplayIcon from '../../../assets/multimedia-refresh-replay-video-icon-svgrepo-com.svg'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // @ts-ignore
-const GameOverModal = ({finalBlackKeysClicked, restartGame, coins}) => {
+const GameOverModal = ({userId, finalBlackKeysClicked, restartGame, coins}) => {
     const nav = useNavigate();
+
+    useEffect(() => {
+        const fetchUpdateUserData = async () => {
+            try {
+                const response = await axios.post(
+                    'http://78.155.197.115:5000/api/user/info/update',
+                    {
+                        userId: userId,
+                        coins: coins,
+                        points: finalBlackKeysClicked
+                    }
+                )
+                console.log(response.data)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchUpdateUserData()
+    }, []);
 
     return (
         <>

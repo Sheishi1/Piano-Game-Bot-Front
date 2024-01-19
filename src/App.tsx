@@ -8,15 +8,14 @@ import axios from "axios";
 
 interface Data {
     userId: number | null;
-    userName: string | "userName";
-    coins: number | "coins",
-    points: number | "points",
+    userName: string | null;
+    coins: number | null,
+    points: number | null,
 }
 
 function App() {
     const {tg, user} = useTelegram()
     const [data, setData] = useState<Data | null>(null);
-    const [loading, setLoading] = useState(true); // Добавьте это состояние
 
     useEffect(() => {
         tg.ready()
@@ -24,35 +23,27 @@ function App() {
             try {
                 const response = await axios.post(
                     'http://78.155.197.115:5000/api/user/auth',
-                    {
-                        userId: user?.id,
-                        userName: user?.userName
-                    },
+                    {userId: user?.id, userName: user?.userName}
                 )
+                console.log(response.data)
                 setData(response.data)
             } catch (e) {
                 console.log(e)
-            } finally {
-                setLoading(false);
             }
         }
 
         fetchData();
-    }, [data, tg, user]);
-
-    if (loading) {
-        return <div>Loading...</div>; // Отображайте индикатор загрузки, пока данные загружаются
-    }
+    }, []);
 
     return (
-        <div className="App">
-            <Routes>
-                <Route index element={ <WelcomePage userName={data?.userName!} // @ts-ignore
-                                                    coins={data?.coins!} points={data?.points!} /> } />
-                <Route path={'playground'} element={ <PlayGroundPage /> } />
-            </Routes>
-        </div>
-    );
+    <div className="App">
+        <Routes>
+            <Route index element={ <WelcomePage userName={data?.userName!}     // @ts-ignore
+                                                coins={data?.coins!} points={data?.points!} /> } />
+            <Route path={'playground'} element={ <PlayGroundPage userId={user?.userId!} /> } />
+        </Routes>
+    </div>
+  );
 }
 
 export default App;

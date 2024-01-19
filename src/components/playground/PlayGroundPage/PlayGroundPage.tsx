@@ -21,7 +21,7 @@ const calculateInitialRows = () => {
     return [...Array.from({ length: numRows - 1 }, generateRow), new Array(4).fill('grey')];
 };
 
-const PlayGroundPage = () => {
+const PlayGroundPage = (props: {userId: number}) => {
     const [keyRows, setKeyRows] = useState(calculateInitialRows());
     const [blackKeysClicked, setBlackKeysClicked] = useState(0);
     const [coins, setCoins] = useState(0);
@@ -151,7 +151,7 @@ const PlayGroundPage = () => {
     return (
         <div className="main__playgroundBlock">
             <TimeBar timer={timer} initialTimer={initialTimer} />
-            {showModal && <GameOverModal restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
+            {showModal && <GameOverModal userId={props.userId} restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
             {keyRows.slice().reverse().map((row, index) => (
                 row[0].color === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} />
             ))}
