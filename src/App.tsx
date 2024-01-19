@@ -8,9 +8,9 @@ import axios from "axios";
 
 interface Data {
     userId: number | null;
-    userName: string | null;
-    coins: number | null,
-    points: number | null,
+    userName: string | "userName";
+    coins: number | "coins",
+    points: number | "points",
 }
 
 function App() {
@@ -19,21 +19,17 @@ function App() {
     const [loading, setLoading] = useState(true); // Добавьте это состояние
 
     useEffect(() => {
+        tg.ready()
         const fetchData = async () => {
             try {
-                tg.ready()
-                console.log(user.userName, user.id)
-
-                const response = axios.post('http://78.155.197.115:5000/api/user/auth', {
-                    userId: user?.userId,
-                    userName: user?.userName
-                })
-                    .then(function (response) {
-                        setData(response.data)
-                    })
-                    .catch(function (error) {
-                        setData(error)
-                    });
+                const response = await axios.post(
+                    'http://78.155.197.115:5000/api/user/auth',
+                    {
+                        userId: user?.id,
+                        userName: user?.userName
+                    },
+                )
+                setData(response.data)
             } catch (e) {
                 console.log(e)
             } finally {
