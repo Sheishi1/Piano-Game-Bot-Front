@@ -5,7 +5,6 @@ import {Route, Routes} from 'react-router-dom'
 import PlayGroundPage from "./components/playground/PlayGroundPage/PlayGroundPage";
 import WelcomePage from "./components/welcome/welcomePage/WelcomePage";
 import axios from "axios";
-const {onToggleButton, tg, user} = useTelegram()
 
 interface Data {
     userId: number | null;
@@ -15,7 +14,9 @@ interface Data {
 }
 
 function App() {
+    const {tg, user} = useTelegram()
     const [data, setData] = useState<Data | null>(null);
+    const [loading, setLoading] = useState(true); // Добавьте это состояние
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,22 +33,27 @@ function App() {
                 setData(response.data)
             } catch (e) {
                 console.log(e)
+            } finally {
+                setLoading(false);
             }
         }
 
         fetchData();
     }, [data, tg, user]);
 
-    return (
+    if (loading) {
+        return <div>Loading...</div>; // Отображайте индикатор загрузки, пока данные загружаются
+    }
 
-    <div className="App">
-        <Routes>
-            <Route index element={ <WelcomePage userName={data?.userName!} // @ts-ignore
-                                                coins={data?.coins!} points={data?.points!} /> } />
-            <Route path={'playground'} element={ <PlayGroundPage /> } />
-        </Routes>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Routes>
+                <Route index element={ <WelcomePage userName={data?.userName!} // @ts-ignore
+                                                    coins={data?.coins!} points={data?.points!} /> } />
+                <Route path={'playground'} element={ <PlayGroundPage /> } />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
