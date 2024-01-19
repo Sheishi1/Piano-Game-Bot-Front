@@ -23,14 +23,17 @@ function App() {
             try {
                 tg.ready()
                 console.log(user.userName, user.id)
-                const response = await axios.post(
-                    'http://78.155.197.115:5000/api/user/auth',
-                    {
-                        userId: user?.id,
-                        userName: user?.userName
-                    }
-                )
-                setData(response.data)
+
+                const response = axios.post('http://78.155.197.115:5000/api/user/auth', {
+                    userId: user?.userId,
+                    userName: user?.userName
+                })
+                    .then(function (response) {
+                        setData(response.data)
+                    })
+                    .catch(function (error) {
+                        setData(error)
+                    });
             } catch (e) {
                 console.log(e)
             } finally {
