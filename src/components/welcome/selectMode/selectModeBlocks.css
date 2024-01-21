@@ -9,5 +9,17 @@
 }
 
 .selectModeBtnsBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
+}
+
+.selectModeBtnsBlock span {
+    margin-bottom: 15px;
+    text-shadow: #565656 0px 0px 20px;
+    color: #d4d4d4;
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    font-weight: 700;
 }

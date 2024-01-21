@@ -7,7 +7,6 @@ const TimeBar = ({ timer, initialTimer }) => {
     return (
         <div className="timer-bar">
             <div className="timer-bar-progress" style={{ width: `${percentage}%` }} />
-            <span>{timer}</span>
         </div>
     );
 };

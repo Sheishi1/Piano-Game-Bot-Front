@@ -5,17 +5,33 @@
     min-width: 250px;
     width: 100%;
     margin-bottom: 20px;
-    padding: 15px 20px;
-    color: #000000;
+    color: #d4d4d4;
     font-size: 16px;
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
-    border-radius: 10px;
+    border-radius: 30px;
     outline: none;
-    border: 2px solid #fff;
-    background: #ffffff;
+    border: none;
+    background: #212121;
+    transition: transform 0.3s ease;
+    padding: 15px 0;
+    animation: expandPadding 2s ease-out forwards;
+}
+
+@keyframes expandPadding {
+    0% {
+        padding: 15px 0;
+    }
+    100% {
+        padding: 15px 20px;
+    }
+}
+
+.selectModeBtn:hover {
+    transform: scale(1.1);
 }
 
 .selectModeBtn a {
+    color: #d4d4d4;
     text-decoration: none;
 }

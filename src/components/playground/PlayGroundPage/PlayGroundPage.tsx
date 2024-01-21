@@ -22,10 +22,11 @@ const calculateInitialRows = () => {
 };
 
 const PlayGroundPage = (props: {userId: number}) => {
+    const [gameStarted, setGameStarted] = useState(false);
     const [keyRows, setKeyRows] = useState(calculateInitialRows());
     const [blackKeysClicked, setBlackKeysClicked] = useState(0);
     const [coins, setCoins] = useState(0);
-    const [initialTimer, setInitialTimer] = useState(10);
+    const [initialTimer, setInitialTimer] = useState(20);
     const [timer, setTimer] = useState(initialTimer);
     const [gameOver, setGameOver] = useState(false);
     const [greenRowPassed, setGreenRowPassed] = useState(false);
@@ -37,6 +38,9 @@ const PlayGroundPage = (props: {userId: number}) => {
         if (gameOver) return;
 
         if (color === 'black') {
+            if (!gameStarted) {
+                setGameStarted(true);
+            }
             setBlackKeysClicked(oldCount => {
                 let isGreen = oldCount === 9;
                 if (isGreen) {
@@ -89,33 +93,36 @@ const PlayGroundPage = (props: {userId: number}) => {
 
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (showModal) {
-                clearInterval(interval);
-            } else {
-                setTimer(oldTimer => {
-                    if (oldTimer <= 0) {
-                        clearInterval(interval);
-                        setGameOver(true);
-                        setShowModal(true);
-                        return 0;
-                    } else {
-                        return oldTimer - 1;
-                    }
-                });
-            }
-        }, 1000);
+        if (gameStarted && !gameOver) {
+            const interval = setInterval(() => {
+                if (showModal) {
+                    clearInterval(interval);
+                } else {
+                    setTimer(oldTimer => {
+                        if (oldTimer <= 0) {
+                            clearInterval(interval);
+                            setGameOver(true);
+                            setShowModal(true);
+                            return 0;
+                        } else {
+                            return oldTimer - 0.5;
+                        }
+                    });
+                }
+            }, 500);
 
-        return () => clearInterval(interval);
-    }, [timer, showModal]);
+            return () => clearInterval(interval);
+        }
+    }, [gameStarted, gameOver, timer, showModal]);
 
     useEffect(() => {
         if (gameOver) {
             setKeyRows(calculateInitialRows());
             setBlackKeysClicked(0);
-            setInitialTimer(10);
-            setTimer(10);
+            setInitialTimer(20);
+            setTimer(20);
             setCrossings(0);
+            setGameStarted(false);
             setShowModal(true);
         } else if (greenRowPassed) {
             // ...
@@ -142,6 +149,7 @@ const PlayGroundPage = (props: {userId: number}) => {
     return (
         <div className="main__playgroundBlock">
             <TimeBar timer={timer} initialTimer={initialTimer} />
+            <span className={'main__pointsCounter'}>{finalBlackKeysClicked}</span>
             {showModal && <GameOverModal userId={props.userId} restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
             {keyRows.slice().reverse().map((row, index) => (
                 row[0].color === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} />

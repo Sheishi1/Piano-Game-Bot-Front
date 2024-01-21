@@ -19,7 +19,6 @@
     height: 200px;
     border: none;
     outline: none;
-    border-radius: 5px;
 }
 @keyframes pulse {
     0% {
@@ -39,11 +38,12 @@
 }
 
 .white {
-    background: linear-gradient(#ffffff, #f8f8f8);
+    background: #fff;
 }
 
 .black {
-    background: linear-gradient(#000000, #101010);
+    border-radius: 5px;
+    background: linear-gradient(#000000, #363636);
 }
 
 .black:hover {
@@ -82,4 +82,14 @@
     font-size: 24px;
     align-items: center;
     justify-content: center;
+}
+
+.main__pointsCounter {
+    top: 80px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    color: #ffffff;
+    text-shadow: #000000  0px 0px 5px;
+    position: fixed;
 }
