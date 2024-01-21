@@ -28,7 +28,7 @@ const GameOverModal = ({userId, finalBlackKeysClicked, restartGame, coins}) => {
             }
         }
         fetchUpdateUserData()
-    }, []);
+    }, [userId, coins, finalBlackKeysClicked]);
 
     return (
         <>

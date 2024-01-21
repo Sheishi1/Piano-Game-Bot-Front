@@ -138,15 +138,6 @@ const PlayGroundPage = (props: {userId: number}) => {
         );
     };
 
-    // @ts-ignore
-    const PianoHeader = ({ coins, timer }) => {
-        return (
-            <div className="pianoHeader">
-                <div className="coin-counter">Coins: {coins}</div>
-                <div className="timer">Time: {timer}</div>
-            </div>
-        );
-    };
 
     return (
         <div className="main__playgroundBlock">

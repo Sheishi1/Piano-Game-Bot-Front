@@ -34,7 +34,8 @@
 }
 
 .key:active {
-    animation: pulse 0.2s ease;
+    transition: .2s;
+    animation: pulse 0.4s ease;
 }
 
 .white {

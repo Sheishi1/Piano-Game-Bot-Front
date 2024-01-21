@@ -22,8 +22,8 @@ function App() {
         const fetchData = async () => {
             try {
                 const response = await axios.post(
-                    'http://78.155.197.115:5000/api/user/auth',
-                    {userId: 123123123, userName: 'Sheishi'}
+                    'http://pianogamebot.ru:5000/api/user/auth',
+                    {userId: user?.userId, userName: user?.userName}
                 )
                 console.log(response.data)
                 setData(response.data)
@@ -40,7 +40,7 @@ function App() {
         <Routes>
             <Route index element={ <WelcomePage userName={user?.userName!}     // @ts-ignore
                                                 coins={data?.coins!} points={data?.points!} /> } />
-            <Route path={'playground'} element={ <PlayGroundPage userId={user?.userId!} /> } />
+            <Route path={'playground'} element={ <PlayGroundPage userId={12321321} /> } />
         </Routes>
     </div>
   );
