@@ -2,6 +2,20 @@ import React, { useState, useEffect } from 'react';
 import "./PlayGroundStyles.css";
 import GameOverModal from "../GameOverModal/GameOverModal";
 import TimeBar from "../PlayGroundTimeBar/TimeBar";
+// @ts-ignore
+import noteDo from '../../../assets/PianoNoteSounds/noty-do.mp3';
+// @ts-ignore
+import noteRe from '../../../assets/PianoNoteSounds/re.mp3';
+// @ts-ignore
+import noteMi from '../../../assets/PianoNoteSounds/mi.mp3';
+// @ts-ignore
+import noteFa from '../../../assets/PianoNoteSounds/fa.mp3';
+// @ts-ignore
+import noteSol from '../../../assets/PianoNoteSounds/sol.mp3';
+// @ts-ignore
+import noteLa from '../../../assets/PianoNoteSounds/lja.mp3';
+// @ts-ignore
+import noteSi from '../../../assets/PianoNoteSounds/si.mp3';
 
 const generateRow = (isGreen = false) => {
     if (isGreen) {
@@ -33,6 +47,14 @@ const PlayGroundPage = (props: {userId: number}) => {
     const [crossings, setCrossings] = useState(0);
     const [showModal, setShowModal] = useState(false);
     let [finalBlackKeysClicked, setFinalBlackKeysClicked] = useState(0);
+    const notes = [noteDo, noteRe, noteMi, noteFa, noteSol, noteLa, noteSi];
+
+    const playSound = () => {
+        const note = notes[Math.floor(Math.random() * notes.length)];
+        const sound = new Audio(note);
+        sound.play().then(r => r);
+    };
+
 
     const handleKeyClick = (color: string, keyIndex: any, rowIndex: any) => {
         if (gameOver) return;
@@ -41,6 +63,8 @@ const PlayGroundPage = (props: {userId: number}) => {
             if (!gameStarted) {
                 setGameStarted(true);
             }
+            playSound()
+
             setBlackKeysClicked(oldCount => {
                 let isGreen = oldCount === 9;
                 if (isGreen) {
@@ -130,6 +154,7 @@ const PlayGroundPage = (props: {userId: number}) => {
             // ...
         }
     }, [gameOver, blackKeysClicked, greenRowPassed]);
+
 
     const restartGame = () => {
         setCoins(0);

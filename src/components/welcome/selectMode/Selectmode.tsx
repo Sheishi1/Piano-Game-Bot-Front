@@ -2,11 +2,11 @@ import React from 'react';
 import "./selectModeBlocks.css"
 import SelectModeBtn from "../selectModeBtn/SelectModeBtn";
 // @ts-ignore
-import playSvgIcon from '../../../assets/play-1003-svgrepo-com.svg'
+import playSvgIcon from '../../../assets/vectorImages/play-1003-svgrepo-com.svg'
 // @ts-ignore
-import cupSvgIcon from '../../../assets/cup-1-svgrepo-com (1).svg'
+import cupSvgIcon from '../../../assets/vectorImages/cup-1-svgrepo-com (1).svg'
 // @ts-ignore
-import shopSvgIcon from '../../../assets/shop-svgrepo-com.svg'
+import shopSvgIcon from '../../../assets/vectorImages/shop-svgrepo-com.svg'
 import { Link } from 'react-router-dom';
 
 const Selectmode = () => {

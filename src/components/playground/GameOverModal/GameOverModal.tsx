@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import "./GameOverModal.css";
 // @ts-ignore
-import svgHomeIcon from '../../../assets/house-svgrepo-com (1).svg'
+import svgHomeIcon from '../../../assets/vectorImages/house-svgrepo-com (1).svg'
 // @ts-ignore
-import svgReplayIcon from '../../../assets/multimedia-refresh-replay-video-icon-svgrepo-com.svg'
+import svgReplayIcon from '../../../assets/vectorImages/multimedia-refresh-replay-video-icon-svgrepo-com.svg'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
