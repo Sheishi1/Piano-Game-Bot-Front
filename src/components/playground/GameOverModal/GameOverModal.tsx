@@ -15,7 +15,7 @@ const GameOverModal = ({userId, finalBlackKeysClicked, restartGame, coins}) => {
         const fetchUpdateUserData = async () => {
             try {
                 const response = await axios.post(
-                    'http://78.155.197.115:5000/api/user/info/update',
+                    'https://pianobot.dutx.site/api/user/info/update',
                     {
                         userId: userId,
                         coins: coins,

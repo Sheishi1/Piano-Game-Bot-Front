@@ -22,7 +22,7 @@ function App() {
         const fetchData = async () => {
             try {
                 const response = await axios.post(
-                    'http://pianogamebot.ru:5000/api/user/auth',
+                    'https://pianobot.dutx.site/api/user/auth',
                     {userId: user?.userId, userName: user?.userName}
                 )
                 console.log(response.data)
