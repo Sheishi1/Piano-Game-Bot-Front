@@ -37,7 +37,7 @@ function App() {
     return (
     <div className="App">
         <Routes>
-            <Route index element={ <WelcomePage userName={data?.userName!} coins={data?.coins!} points={data?.points!} /> } />
+            <Route index element={ <WelcomePage userName={user?.username} coins={data?.coins!} points={data?.points!} /> } />
             <Route path={'playground'} element={ <PlayGroundPage userId={data?.userId!} /> } />
         </Routes>
     </div>
