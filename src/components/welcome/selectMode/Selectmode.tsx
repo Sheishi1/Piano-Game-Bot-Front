@@ -21,10 +21,10 @@ const Selectmode = () => {
                     </SelectModeBtn>
                 </Link>
                 <Link to="/rating">
-                <SelectModeBtn className={`selectModeBtn`}>
-                    <img src={cupSvgIcon} alt="cup" style={{marginRight: 10}}/>
-                    Рейтинг
-                </SelectModeBtn>
+                    <SelectModeBtn className={`selectModeBtn`}>
+                        <img src={cupSvgIcon} alt="cup" style={{marginRight: 10}}/>
+                        Рейтинг
+                    </SelectModeBtn>
                 </Link>
                 <SelectModeBtn className={`selectModeBtn`}>
                     <img src={shopSvgIcon} alt="shop" style={{marginRight: 10}}/>
