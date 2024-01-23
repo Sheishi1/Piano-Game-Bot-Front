@@ -10,7 +10,7 @@ const RatingListItem = (props: {userName: string, points: number, position: numb
     return (
         <div style={listItemStyle}>
             <div className={`main__ratingListItemBlock`}>
-                <span>{props.position}. {props.userName}</span>
+                <span>props.highlight ? {`${props.position}. Вы`} : {`${props.position}. ${props.userName}`}</span>
                 <div className="ratingPointsCount"><img src={cupSvgIcon} alt="replay" style={{marginRight: '5px'}}/>{props.points}</div>
             </div>
         </div>
