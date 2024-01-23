@@ -16,7 +16,7 @@
 
 .key {
     width: 25%;
-    height: 200px;
+    height: 250px;
     border: none;
     outline: none;
 }
@@ -63,9 +63,9 @@
 }
 
 .green-bar {
-    position: fixed;
-    background-color: #35d035;
-    height: 1px;
+    position: absolute;
+    height: 5px;
+    background-color: green;
     width: 100%;
 }
 
@@ -92,4 +92,7 @@
     color: #ffffff;
     text-shadow: #000000  0px 0px 5px;
     position: fixed;
+}
+.key-row.top-row {
+    height: 150px;
 }
