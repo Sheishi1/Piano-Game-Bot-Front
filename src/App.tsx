@@ -25,7 +25,6 @@ function App() {
                     'https://pianobot.dutx.site/api/user/auth',
                     {userId: user?.id, userName: user?.userName}
                 )
-                console.log(response.data)
                 setData(response.data)
             } catch (e) {
                 console.log(e)
@@ -38,9 +37,8 @@ function App() {
     return (
     <div className="App">
         <Routes>
-            <Route index element={ <WelcomePage userName={user?.userName!}     // @ts-ignore
-                                                coins={data?.coins!} points={data?.points!} /> } />
-            <Route path={'playground'} element={ <PlayGroundPage userId={12321321} /> } />
+            <Route index element={ <WelcomePage userName={data?.userName!} coins={data?.coins!} points={data?.points!} /> } />
+            <Route path={'playground'} element={ <PlayGroundPage userId={data?.userId!} /> } />
         </Routes>
     </div>
   );

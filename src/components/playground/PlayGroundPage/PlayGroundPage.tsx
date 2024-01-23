@@ -35,7 +35,7 @@ const calculateInitialRows = () => {
     return [...Array.from({ length: numRows - 1 }, generateRow), new Array(4).fill('grey')];
 };
 
-const PlayGroundPage = (props: {userId: number}) => {
+const PlayGroundPage = (props: {userId: number | null}) => {
     const [gameStarted, setGameStarted] = useState(false);
     const [keyRows, setKeyRows] = useState(calculateInitialRows());
     const [blackKeysClicked, setBlackKeysClicked] = useState(0);

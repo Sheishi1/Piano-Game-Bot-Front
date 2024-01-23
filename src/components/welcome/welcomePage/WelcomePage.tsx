@@ -3,7 +3,7 @@ import "./WelcomePage.css"
 import Selectmode from "../selectMode/Selectmode";
 import WelcomeHeader from "../WelcomeHeader/WelcomeHeader";
 
-const WelcomePage = (props: {userName: string, coins: string, points: string}) => {
+const WelcomePage = (props: {userName: string, coins: number, points: number}) => {
     return (
         <div className={`main__welcomePageBlock`}>
             <div className="welcomePageBg"/>
