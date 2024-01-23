@@ -7,10 +7,10 @@ import WelcomePage from "./components/welcome/welcomePage/WelcomePage";
 import axios from "axios";
 
 interface Data {
-    userId: number | null;
-    userName: string | null;
-    coins: number | null,
-    points: number | null,
+    userId: number | 0;
+    userName: string | "user";
+    coins: number | 0,
+    points: number | 0,
 }
 
 function App() {
