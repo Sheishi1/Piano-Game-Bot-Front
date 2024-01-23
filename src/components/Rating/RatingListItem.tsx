@@ -1,7 +1,7 @@
 import React from 'react';
 import "./RatingPage.css";
 // @ts-ignore
-import cupSvgIcon from '../../../assets/vectorImages/cup-1-svgrepo-com (1).svg'
+import cupSvgIcon from '../../assets/vectorImages/cup-1-svgrepo-com (1).svg'
 
 
 const RatingListItem = (props: {userName: string, points: number, position: number}) => {
