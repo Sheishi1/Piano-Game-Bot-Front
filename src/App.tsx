@@ -5,17 +5,12 @@ import {Route, Routes} from 'react-router-dom'
 import PlayGroundPage from "./components/playground/PlayGroundPage/PlayGroundPage";
 import WelcomePage from "./components/welcome/welcomePage/WelcomePage";
 import axios from "axios";
-
-interface Data {
-    userId: number | 0;
-    userName: string | "user";
-    coins: number | 0,
-    points: number | 0,
-}
+import {UserData} from "./Models/UserData";
+import RatingPage from "./components/Rating/RatingPage";
 
 function App() {
     const {tg, user} = useTelegram()
-    const [data, setData] = useState<Data | null>(null);
+    const [data, setData] = useState<UserData | null>(null);
 
     useEffect(() => {
         tg.ready()
@@ -39,6 +34,7 @@ function App() {
         <Routes>
             <Route index element={ <WelcomePage userName={user?.username} coins={data?.coins!} points={data?.points!} /> } />
             <Route path={'playground'} element={ <PlayGroundPage userId={data?.userId!} /> } />
+            <Route path={'rating'} element={ <RatingPage userId={data?.userId!} /> } />
         </Routes>
     </div>
   );

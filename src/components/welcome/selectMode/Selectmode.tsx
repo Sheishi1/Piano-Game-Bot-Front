@@ -14,16 +14,18 @@ const Selectmode = () => {
         <div className={`main__selectModeBlock`}>
             <div className="selectModeBtnsBlock">
                 <span>Piano-Game</span>
-                <Link to="/playground"> {/* Переместите Link сюда */}
+                <Link to="/playground">
                     <SelectModeBtn className={`selectModeBtn`}>
                         <img src={playSvgIcon} alt="play" style={{marginRight: 10}}/>
                         Играть
                     </SelectModeBtn>
                 </Link>
+                <Link to="/rating">
                 <SelectModeBtn className={`selectModeBtn`}>
                     <img src={cupSvgIcon} alt="cup" style={{marginRight: 10}}/>
                     Рейтинг
                 </SelectModeBtn>
+                </Link>
                 <SelectModeBtn className={`selectModeBtn`}>
                     <img src={shopSvgIcon} alt="shop" style={{marginRight: 10}}/>
                     Магазин
