@@ -22,7 +22,6 @@ const GameOverModal = ({userId, finalBlackKeysClicked, restartGame, coins}) => {
                         points: finalBlackKeysClicked
                     }
                 )
-                console.log(response.data)
             } catch (e) {
                 console.log(e)
             }
