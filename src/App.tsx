@@ -34,7 +34,7 @@ function App() {
         <Routes>
             <Route index element={ <WelcomePage userName={user?.username} coins={data?.coins!} points={data?.points!} /> } />
             <Route path={'playground'} element={ <PlayGroundPage userId={data?.userId!} /> } />
-            <Route path={'rating'} element={ <RatingPage userId={data?.userId!} /> } />
+            <Route path={'rating'} element={ <RatingPage userId={data?.userId!} userName={data?.userName!} /> } />
         </Routes>
     </div>
   );

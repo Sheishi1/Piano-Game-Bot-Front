@@ -4,7 +4,7 @@ import {RatingData} from "../../Models/RatingData";
 import "./RatingPage.css";
 import RatingListItem from "./RatingListItem";
 
-const RatingPage = (props: {userId: number}) => {
+const RatingPage = (props: {userId: number, userName: string}) => {
     const [ratingData, setRatingData] = useState<RatingData | null>(null);
 
 
@@ -28,7 +28,12 @@ const RatingPage = (props: {userId: number}) => {
         <div className={`main__RatingPageBlock`}>
             {
                 ratingData?.topUsers.map( data =>
-                    <RatingListItem userName={data?.user?.userName!} points={data?.user?.points!} position={data?.position!} />
+                    <RatingListItem
+                        userName={data?.user?.userName!}
+                        points={data?.user?.points!}
+                        position={data?.position!}
+                        highlight={props.userName === data?.user?.userName}
+                    />
                 )
             }
         </div>
