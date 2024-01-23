@@ -1,7 +1,7 @@
 import React from 'react';
 import "./WelcomeHeader.css"
 
-const WelcomeHeader = (props: { userName: string, coins: string, points: string}) => {
+const WelcomeHeader = (props: { userName: string, coins: number, points: number}) => {
     return (
         <div className={`main_welcomeHeaderBlock`}>
             <div className="userName">{props.userName}</div>
