@@ -23,7 +23,7 @@ function App() {
             try {
                 const response = await axios.post(
                     'https://pianobot.dutx.site/api/user/auth',
-                    {userId: user?.userId, userName: user?.userName}
+                    {userId: user?.id, userName: user?.userName}
                 )
                 console.log(response.data)
                 setData(response.data)
@@ -33,7 +33,7 @@ function App() {
         }
 
         fetchData();
-    }, []);
+    }, [data]);
 
     return (
     <div className="App">
