@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback, useMemo} from 'react';
 import "./PlayGroundStyles.css";
 import GameOverModal from "../GameOverModal/GameOverModal";
 import TimeBar from "../PlayGroundTimeBar/TimeBar";
-// @ts-ignore
-import noteDo from '../../../assets/PianoNoteSounds/noty-do.mp3';
-// @ts-ignore
-import noteRe from '../../../assets/PianoNoteSounds/re.mp3';
-// @ts-ignore
-import noteMi from '../../../assets/PianoNoteSounds/mi.mp3';
-// @ts-ignore
-import noteFa from '../../../assets/PianoNoteSounds/fa.mp3';
-// @ts-ignore
-import noteSol from '../../../assets/PianoNoteSounds/sol.mp3';
-// @ts-ignore
-import noteLa from '../../../assets/PianoNoteSounds/lja.mp3';
-// @ts-ignore
-import noteSi from '../../../assets/PianoNoteSounds/si.mp3';
+import { notes } from '../../../assets/PianoNoteSounds/notes';
 
 const generateRow = (isGreen = false) => {
     if (isGreen) {
@@ -35,6 +22,29 @@ const calculateInitialRows = () => {
     return [...Array.from({ length: numRows - 1 }, generateRow), new Array(4).fill('grey')];
 };
 
+// @ts-ignore
+const Key = React.memo(({ color, onClick, pressed }) => {
+    const buttonColor = pressed ? 'grey' : color;
+    return (
+        <button className={`key ${buttonColor}`} onClick={onClick} />
+    );
+});
+
+// @ts-ignore
+const KeyRow = React.memo(({ row, onClick, rowIndex }) => {
+    return (
+        <div className="key-row">
+            {row.map((key: { color: any; pressed: any; }, index: React.Key | null | undefined) => (
+                <Key key={index} //@ts-ignore
+                     color={key.color} onClick={() => onClick(key.color, index, rowIndex)} pressed={key.pressed} />
+            ))}
+        </div>
+    );
+});
+
+const GreenBar = () => <div className="green-bar" />;
+
+
 const PlayGroundPage = (props: {userId: number | null}) => {
     const [gameStarted, setGameStarted] = useState(false);
     const [keyRows, setKeyRows] = useState(calculateInitialRows());
@@ -47,7 +57,6 @@ const PlayGroundPage = (props: {userId: number | null}) => {
     const [crossings, setCrossings] = useState(0);
     const [showModal, setShowModal] = useState(false);
     let [finalBlackKeysClicked, setFinalBlackKeysClicked] = useState(0);
-    const notes = [noteDo, noteRe, noteMi, noteFa, noteSol, noteLa, noteSi];
 
     const playSound = () => {
         const note = notes[Math.floor(Math.random() * notes.length)];
@@ -56,7 +65,7 @@ const PlayGroundPage = (props: {userId: number | null}) => {
     };
 
 
-    const handleKeyClick = (color: string, keyIndex: any, rowIndex: any) => {
+    const handleKeyClick = useCallback((color: string, keyIndex: string | number, rowIndex: string | number) => {
         if (gameOver) return;
 
         if (color === 'black') {
@@ -77,12 +86,14 @@ const PlayGroundPage = (props: {userId: number | null}) => {
                     setGreenRowPassed(true);
                     setKeyRows(oldRows => {
                         const newRows = [...oldRows];
+                        // @ts-ignore
                         newRows[rowIndex][keyIndex].pressed = true;
                         return [generateRow(), generateRow(), ...newRows.slice(0, -1)];
                     });
                 } else {
                     setKeyRows(oldRows => {
                         const newRows = [...oldRows];
+                        // @ts-ignore
                         newRows[rowIndex][keyIndex].pressed = true;
                         return [generateRow(), ...newRows.slice(0, -1)];
                     });
@@ -94,26 +105,7 @@ const PlayGroundPage = (props: {userId: number | null}) => {
         } else if (color === 'white') {
             setGameOver(true);
         }
-    };
-
-    // @ts-ignore
-    const Key = ({ color, onClick, pressed }) => {
-        const buttonColor = pressed ? 'grey' : color;
-        return (
-            <button className={`key ${buttonColor}`} onClick={onClick} />
-        );
-    };
-
-    // @ts-ignore
-    const KeyRow = ({ row, onClick, rowIndex }) => {
-        return (
-            <div className="key-row">
-                {row.map((key: any, index: React.Key | null | undefined) => (
-                    <Key key={index} color={key.color} onClick={() => onClick(key.color, index, rowIndex)} pressed={key.pressed} />
-                ))}
-            </div>
-        );
-    };
+    }, [gameStarted, gameOver, timer, showModal]);
 
 
     useEffect(() => {
@@ -164,23 +156,19 @@ const PlayGroundPage = (props: {userId: number | null}) => {
         setKeyRows(calculateInitialRows()); // reset keyRows state
     };
 
-    const GreenBar = () => {
-        return (
-            <div className="green-bar" />
-        );
-    };
-
+    const keyRowsReversed = useMemo(() => keyRows.slice().reverse(), [keyRows]);
 
     return (
         <div className="main__playgroundBlock">
             <TimeBar timer={timer} initialTimer={initialTimer} />
             <span className={'main__pointsCounter'}>{finalBlackKeysClicked}</span>
             {showModal && <GameOverModal userId={props.userId} restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
-            {keyRows.slice().reverse().map((row, index) => (
-                row[0].color === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} />
+            {keyRowsReversed.map((row, index) => (
+                row[0].color === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} //@ts-ignore
+                                                                              row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} />
             ))}
         </div>
     );
 };
 
-export default PlayGroundPage
+export default React.memo(PlayGroundPage);
