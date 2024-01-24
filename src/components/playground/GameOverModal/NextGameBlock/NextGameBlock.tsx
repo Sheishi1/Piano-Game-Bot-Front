@@ -49,6 +49,7 @@ const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKey
                 fetchDecreaseHearts();
                 setIsVisible(false);
                 props.onContinue(props.finalBlackKeysClicked, 0);
+
             }}>Продолжить
             </button>
             {timeLeft > 0 ? (
