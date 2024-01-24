@@ -1,0 +1,64 @@
+.main__ShopPageBlock {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    padding: 20px;
+    margin-top: 50px;
+    width: 100%;
+    background: #0f0f0f
+}
+
+.shopItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.shopItem span {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.shopItem button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 50px;
+    outline: none;
+    border: none;
+    background: #ffffff;
+    transition: transform 0.3s ease;
+    padding: 10px 30px;
+}
+
+.main__ShopPageBlock img {
+    width: 60%;
+    border-radius: 15px;
+    height: 50vh;
+}
+
+.main_shopHeaderBlock {
+    display: flex;
+    padding: 10px 20px;
+    width: 100%;
+    height: 50px;
+    background-color: #212121;
+    position: fixed;
+    top: 0;
+    border-bottom: 2px solid #000000;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    flex-direction: row;
+    gap: 20px;
+}
