@@ -12,7 +12,7 @@ import ShopPage from "./components/Shop/ShopPage";
 function App() {
     const {tg, user} = useTelegram()
     const [data, setData] = useState<UserData | null>(null);
-    const [theme, setTheme] = useState(2);
+    const [theme, setTheme] = useState(1);
 
     useEffect(() => {
         tg.ready()

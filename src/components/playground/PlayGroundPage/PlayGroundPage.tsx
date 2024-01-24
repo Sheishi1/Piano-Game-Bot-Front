@@ -162,8 +162,8 @@ const PlayGroundPage = (props: {userId: number, userHearts: number, chosenThemeN
     }, [gameOver, blackKeysClicked, greenRowPassed]);
 
 
-    const restartGame = (finalBlackKeysClicked: number = 0, coins: number = 0) => {
-        setCoins(coins);
+    const restartGame = (finalBlackKeysClicked: number = 0) => {
+        setCoins(0);
         setFinalBlackKeysClicked(finalBlackKeysClicked);
         setInitialTimer(10);
         setTimer(10);
