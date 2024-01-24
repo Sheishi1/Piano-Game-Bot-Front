@@ -95,7 +95,7 @@ const PlayGroundPage = (props: {userId: number, userHearts: number, chosenThemeN
                     setCrossings(oldCrossings => {
                         let newCrossings = oldCrossings + 1;
                         setTimer(initialTimer - newCrossings);
-                        setCoins(oldTimer => oldTimer + 5);
+                        setCoins(oldTimer => oldTimer + 1);
                         return newCrossings;
                     });
                     setGreenRowPassed(true);
@@ -121,7 +121,6 @@ const PlayGroundPage = (props: {userId: number, userHearts: number, chosenThemeN
             setGameOver(true);
         }
     }, [gameStarted, gameOver, timer, showModal]);
-
 
     useEffect(() => {
         if (gameStarted && !gameOver) {

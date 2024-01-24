@@ -13,6 +13,7 @@ import NextGameBlock from "./NextGameBlock/NextGameBlock";
 const GameOverModal = ({userId, userHearts, finalBlackKeysClicked, restartGame, coins}) => {
     const [data, setData] = useState<UserData | null>(null);
     const nav = useNavigate();
+    const [showGameOverModal, setShowGameOverModal] = useState(false);
 
     useEffect(() => {
 
@@ -37,32 +38,27 @@ const GameOverModal = ({userId, userHearts, finalBlackKeysClicked, restartGame, 
     return (
         <>
             <div className="modal-overlay"/>
-            {
-                userHearts > 0
-                    ?
-                    <NextGameBlock userId={userId} userHearts={userHearts} finalBlackKeysClicked={finalBlackKeysClicked}
-                                   coins={coins}
-                                   onContinue={(blackKeys: any, coins: any) => restartGame(blackKeys, coins)}/>
-                    :
-                    <div className="main__gameOverModal">
-                        <span className={`gameOverSpan`}>Игра окончена</span>
-                        <div className="statisticBlock">
-                    <span>
-                        Очки: {finalBlackKeysClicked}
-                    </span>
-                            <span>
-                        Монеты: {coins}
-                    </span>
-                        </div>
-                        <button className={`modalGameOver__replayBtn`} onClick={() => restartGame()}><img
-                            src={svgReplayIcon}
-                            alt="replay"/>
-                        </button>
-                        <button className={`modalGameOver__homeBtn`} onClick={() => nav(-1)}>
-                            <img src={svgHomeIcon} alt="home"/>
-                        </button>
+            {userHearts > 0 && !showGameOverModal ? (
+                <NextGameBlock userId={userId} userHearts={userHearts} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} onContinue={(blackKeys: any, coins: any) => restartGame(blackKeys, coins)} />
+            ) : (
+                <div className="main__gameOverModal">
+                    <span className={`gameOverSpan`}>Игра окончена</span>
+                    <div className="statisticBlock">
+                        <span>
+                            Очки: {finalBlackKeysClicked}
+                        </span>
+                        <span>
+                            Монеты: {coins}
+                        </span>
                     </div>
-            }
+                    <button className={`modalGameOver__replayBtn`} onClick={() => restartGame()}><img src={svgReplayIcon}
+                                                                                                      alt="replay"/>
+                    </button>
+                    <button className={`modalGameOver__homeBtn`} onClick={() => nav(-1)}>
+                        <img src={svgHomeIcon} alt="home"/>
+                    </button>
+                </div>
+            )}
         </>
     );
 };

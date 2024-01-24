@@ -40,21 +40,19 @@ const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKey
 
     return (
         <div className={`main__NextGameBlock`}>
-            <div className="topNextBlock">
-                {Array.from({ length: props.userHearts }).map((_, index) => (
-                    <img key={index} src={heartSvgIcon} alt="heartSvgIcon" style={{marginRight: '5px'}}/>
-                ))}
-            </div>
-            <button className={`nextBtn`} onClick={() => {
-                fetchDecreaseHearts();
-                setIsVisible(false);
-                props.onContinue(props.finalBlackKeysClicked, props.coins);
-            }}>Продолжить
-            </button>
+            {/* ... */}
             {timeLeft > 0 ? (
                 <div className="timerProgress" style={{width: `${timeLeft / 3 * 100}%`}}/>
             ) : (
-                <img src={closeSvgBtn} alt="close" className={`closeNextBlock`} onClick={() => setIsVisible(false)}/>
+                <img
+                    src={closeSvgBtn}
+                    alt="close"
+                    className={`closeNextBlock`}
+                    onClick={() => {
+                        setIsVisible(false);
+                        props.onContinue(props.finalBlackKeysClicked, props.coins);
+                    }}
+                />
             )}
         </div>
     );
