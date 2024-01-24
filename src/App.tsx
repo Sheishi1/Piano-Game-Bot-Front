@@ -12,7 +12,7 @@ import ShopPage from "./components/Shop/ShopPage";
 function App() {
     const {tg, user} = useTelegram()
     const [data, setData] = useState<UserData | null>(null);
-    const [theme, setTheme] = useState(1);
+    const [theme, setTheme] = useState(3);
 
     useEffect(() => {
         tg.ready()
@@ -31,13 +31,15 @@ function App() {
         fetchData();
     }, [data, tg, user]);
 
+
+
     return (
     <div className="App">
         <Routes>
             <Route index element={ <WelcomePage userName={user?.username} coins={data?.coins!} points={data?.points!} /> } />
-            <Route path={'playground'} element={ <PlayGroundPage chosenThemeNumber={theme} userId={data?.userId!} /> } />
+            <Route path={'playground'} element={ <PlayGroundPage userHearts={data?.hearts!} chosenThemeNumber={theme} userId={data?.userId!} /> } />
             <Route path={'rating'} element={ <RatingPage userId={data?.userId!} userName={data?.userName!} /> } />
-            <Route path={'shop'} element={ <ShopPage userId={data?.userId!} coins={data?.coins!} points={data?.points!} /> } />
+            <Route path={'shop'} element={ <ShopPage userId={data?.userId!} userName={data?.userName!} coins={data?.coins!} /> } />
         </Routes>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Shop.css";
 import ShopHeader from "./ShopHeader";
 // @ts-ignore
@@ -9,20 +9,48 @@ import secondShopItem from '../../assets/ShopItems/Frame 4.png'
 import thridShopItem from '../../assets/ShopItems/Frame 6 (1).png'
 // @ts-ignore
 import sevenShopItem from '../../assets/ShopItems/Frame 7.png'
+import axios from "axios";
+import {UserData} from "../../Models/UserData";
 
-const ShopPage = (props: {userId: number, coins: number, points: number}) => {
-        const handleBuy = (itemId: number, userId: number) => {
-            fetch('https://pianobot.dutx.site/api/shop/auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ itemId })
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+const ShopPage = (props: {userId: number, userName: string, coins: number}) => {
+    const [data, setData] = useState<UserData | null>(null);
+
+    useEffect(() => {
+        const getProducts = async () => {
+            try {
+                const response = await axios.post(
+                    'https://pianobot.dutx.site/api/shop/allproducts',
+                    {
+                        userId: props.userId,
+                    }
+                )
+                setData(response.data)
+            } catch (e) {
+                console.log(e)
+            }
         }
+
+        getProducts()
+    }, [data]);
+
+    const buyTheme = async (productId: number) => {
+        try {
+            const response = await axios.post(
+                'https://pianobot.dutx.site/api/shop/buyproduct',
+                {
+                    userId: props.userId,
+                    productId: productId,
+                    price: props.coins
+                }
+            )
+            setData(response.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    // @ts-ignore
+    buyTheme()
 
     return (
         <>
@@ -46,7 +74,7 @@ const ShopPage = (props: {userId: number, coins: number, points: number}) => {
                 <div className="shopItem">
                     <span>4 оформление</span>
                     <img src={thridShopItem} alt="firstItem"/>
-                    <button>Купитnь</button>
+                    <button>Купить</button>
                 </div>
             </div>
         </>

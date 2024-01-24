@@ -1,5 +1,5 @@
 .main__playgroundBlock {
-    padding: 10px;
+    padding: 5px;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -49,6 +49,10 @@
     background-color: #ffffff;
 }
 
+.theme2 {
+    background-color: #BFFFA8;
+}
+
 .key-row.theme2 {
     background-color: #BFFFA8;
 }
@@ -58,6 +62,36 @@
     justify-content: center;
     align-items: center;
     background-color: #BFFFA8;
+}
+
+.theme3 {
+    background-color: #FF98B1;
+}
+
+.key-row.theme3 {
+    background-color: #FF98B1;
+}
+
+.key.theme3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF98B1;
+}
+
+.theme4 {
+    background-color: #AFA8FF;
+}
+
+.key-row.theme4 {
+    background-color: #AFA8FF;
+}
+
+.key.theme4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #AFA8FF;
 }
 
 .white {
@@ -74,21 +108,8 @@
     background: linear-gradient(#2f2f2f, #484848);
 }
 
-.green, .green-bar {
-    background-color: green;
-}
-
 .coin-counter {
     margin-right: 20px;
-}
-
-.timer {
-}
-
-.green-bar {
-    height: 5px;
-    background-color: green;
-    width: 100%;
 }
 
 .pianoHeader {

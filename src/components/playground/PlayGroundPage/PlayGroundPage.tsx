@@ -30,12 +30,17 @@ const calculateInitialRows = () => {
 
 // @ts-ignore
 const Key = React.memo(({ color, onClick, pressed, theme }) => {
+    const themeColors = {
+        1: 'gray',
+        2: 'lightgray',
+    };
+
     const buttonColor = pressed ? 'grey' : color;
     return (
         <button className={`key ${buttonColor} theme${theme}`} onClick={onClick}>
-            {theme === 2 && <img src={svgCatKey} alt="Theme image"/>}
-            {theme === 3 && <img src={svgSakuraKey} alt="Theme image"/>}
-            {theme === 4 && <img src={svgStarKey} alt="Theme image"/>}
+            {color === 'black' && theme === 2 && <img src={svgCatKey} alt="Theme image"/>}
+            {color === 'black' && theme === 3 && <img src={svgSakuraKey} alt="Theme image"/>}
+            {color === 'black' && theme === 4 && <img src={svgStarKey} alt="Theme image"/>}
         </button>
     );
 });
@@ -55,7 +60,7 @@ const KeyRow = React.memo(({theme, row, onClick, rowIndex, isTopRow}) => {
 const GreenBar = () => <div className="green-bar" />;
 
 
-const PlayGroundPage = (props: {userId: number, chosenThemeNumber: number}) => {
+const PlayGroundPage = (props: {userId: number, userHearts: number, chosenThemeNumber: number}) => {
     const [gameStarted, setGameStarted] = useState(false);
     const [keyRows, setKeyRows] = useState(calculateInitialRows());
     const [blackKeysClicked, setBlackKeysClicked] = useState(0);
@@ -158,9 +163,9 @@ const PlayGroundPage = (props: {userId: number, chosenThemeNumber: number}) => {
     }, [gameOver, blackKeysClicked, greenRowPassed]);
 
 
-    const restartGame = () => {
-        setCoins(0);
-        setFinalBlackKeysClicked(0);
+    const restartGame = (finalBlackKeysClicked: number = 0, coins: number = 0) => {
+        setCoins(coins);
+        setFinalBlackKeysClicked(finalBlackKeysClicked);
         setInitialTimer(10);
         setTimer(10);
         setShowModal(false);
@@ -174,7 +179,7 @@ const PlayGroundPage = (props: {userId: number, chosenThemeNumber: number}) => {
         <div className={`main__playgroundBlock theme${props.chosenThemeNumber}`}>
             <TimeBar timer={timer} initialTimer={initialTimer} />
             <span className={'main__pointsCounter'}>{finalBlackKeysClicked}</span>
-            {showModal && <GameOverModal userId={props.userId} restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
+            {showModal && <GameOverModal userId={props.userId} userHearts={props.userHearts} restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
             {keyRowsReversed.map((row, index) => (
                 <>
                     <KeyRow key={index} //@ts-ignore
