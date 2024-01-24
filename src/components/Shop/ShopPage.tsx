@@ -11,12 +11,17 @@ import thridShopItem from '../../assets/ShopItems/Frame 6 (1).png'
 import sevenShopItem from '../../assets/ShopItems/Frame 7.png'
 import axios from "axios";
 import {UserData} from "../../Models/UserData";
+// @ts-ignore
+import { CircularProgress } from '@mui/material';
 
 const ShopPage = (props: {userId: number, userName: string, coins: number, setTheme: Function}) => {
     const [data, setData] = useState<UserData | null>(null);
+    const [selectedTheme, setSelectedTheme] = useState<number | null>(1);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const getProducts = async () => {
+            setIsLoading(true);
             try {
                 const response = await axios.post(
                     'https://pianobot.dutx.site/api/shop/allproducts',
@@ -27,13 +32,16 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
                 setData(response.data)
             } catch (e) {
                 console.log(e)
+            } finally {
+                setIsLoading(false);
             }
         }
 
         getProducts()
-    }, [data]);
+    }, [props.userId]);
 
     const buyTheme = async (productId: number) => {
+        setIsLoading(true);
         try {
             const response = await axios.post(
                 'https://pianobot.dutx.site/api/shop/buyproduct',
@@ -46,12 +54,19 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
             setData(response.data)
         } catch (e) {
             console.log(e)
+        } finally {
+            setIsLoading(false);
         }
     }
 
     const handleButtonClick = (newTheme: number) => {
+        setSelectedTheme(newTheme);
         props.setTheme(newTheme);
     };
+
+    if (isLoading) {
+        return <CircularProgress />;
+    }
 
     return (
         <>
@@ -60,49 +75,49 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
                 <div className="shopItem">
                     <span>1 оформление</span>
                     <img src={sevenShopItem} alt="firstItem"/>
-                    <button onClick={() => handleButtonClick(1)}>Выбрать</button>
+                    <button onClick={() => handleButtonClick(1)}>{selectedTheme === 1 ? 'Выбрано' : 'Выбрать'}</button>
                 </div>
 
                 {   //@ts-ignore
-                    data && data?.userPurchases!.includes(1) ? (
-                    <div className="shopItem purchased">
-                        <span>1 оформление (уже куплено)</span>
-                        <img src={firstShopItem} alt="firstItem"/>
-                        <button onClick={() => handleButtonClick(1)}>Выбрать</button>
-                    </div>
-                ) : (
-                    <div className="shopItem">
-                        <span>2 оформление, 500$</span>
-                        <img src={firstShopItem} alt="firstItem"/>
-                        <button onClick={() => buyTheme(1)}>Купить</button>
-                    </div>
-                )}
-                {   //@ts-ignore
                     data && data?.userPurchases!.includes(2) ? (
                         <div className="shopItem purchased">
-                            <span>3 оформление (уже куплено)</span>
-                            <img src={secondShopItem} alt="firstItem"/>
-                            <button onClick={() => handleButtonClick(2)}>Выбрать</button>
+                            <span>2 оформление (уже куплено)</span>
+                            <img src={firstShopItem} alt="firstItem"/>
+                            <button onClick={() => handleButtonClick(2)}>{selectedTheme === 2 ? 'Выбрано' : 'Выбрать'}</button>
                         </div>
                     ) : (
                         <div className="shopItem">
-                            <span>3 оформление, 1000$</span>
-                            <img src={secondShopItem} alt="firstItem"/>
+                            <span>2 оформление, 500$</span>
+                            <img src={firstShopItem} alt="firstItem"/>
                             <button onClick={() => buyTheme(2)}>Купить</button>
                         </div>
                     )}
                 {   //@ts-ignore
                     data && data?.userPurchases!.includes(3) ? (
                         <div className="shopItem purchased">
+                            <span>3 оформление (уже куплено)</span>
+                            <img src={secondShopItem} alt="firstItem"/>
+                            <button onClick={() => handleButtonClick(3)}>{selectedTheme === 3 ? 'Выбрано' : 'Выбрать'}</button>
+                        </div>
+                    ) : (
+                        <div className="shopItem">
+                            <span>3 оформление, 1000$</span>
+                            <img src={secondShopItem} alt="firstItem"/>
+                            <button onClick={() => buyTheme(3)}>Купить</button>
+                        </div>
+                    )}
+                {   //@ts-ignore
+                    data && data?.userPurchases!.includes(4) ? (
+                        <div className="shopItem purchased">
                             <span>4 оформление (уже куплено)</span>
                             <img src={thridShopItem} alt="firstItem"/>
-                            <button onClick={() => handleButtonClick(3)}>Выбрать</button>
+                            <button onClick={() => handleButtonClick(4)}>{selectedTheme === 4 ? 'Выбрано' : 'Выбрать'}</button>
                         </div>
                     ) : (
                         <div className="shopItem">
                             <span>4 оформление, 1000$</span>
                             <img src={thridShopItem} alt="firstItem"/>
-                            <button onClick={() => buyTheme(3)}>Купить</button>
+                            <button onClick={() => buyTheme(4)}>Купить</button>
                         </div>
                     )}
             </div>
