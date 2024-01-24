@@ -18,6 +18,7 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
     const [data, setData] = useState<UserData | null>(null);
     const [selectedTheme, setSelectedTheme] = useState<number | null>(1);
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     useEffect(() => {
         const getProducts = async () => {
@@ -54,6 +55,12 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
             setData(response.data)
         } catch (e) {
             console.log(e)
+            // @ts-ignore
+            if (e.response && e.response.data) {
+                // @ts-ignore
+                setErrorMessage(e.response.data);
+                setTimeout(() => setErrorMessage(null), 3000);
+            }
         } finally {
             setIsLoading(false);
         }
@@ -65,7 +72,16 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
     };
 
     if (isLoading) {
-        return <CircularProgress />;
+        return <CircularProgress className={`CircularIndicator`} />;
+    }
+
+
+    if (errorMessage) {
+        return (
+            <div className={`errorMessage`}>
+                {errorMessage}
+            </div>
+        );
     }
 
     return (

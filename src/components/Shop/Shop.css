@@ -70,3 +70,20 @@
     flex-direction: row;
     gap: 20px;
 }
+
+.CircularIndicator {
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.errorMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
