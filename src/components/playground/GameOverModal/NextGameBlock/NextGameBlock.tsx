@@ -48,7 +48,7 @@ const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKey
             <button className={`nextBtn`} onClick={() => {
                 fetchDecreaseHearts();
                 setIsVisible(false);
-                props.onContinue(props.finalBlackKeysClicked, props.coins);
+                props.onContinue(props.finalBlackKeysClicked, 0);
             }}>Продолжить
             </button>
             {timeLeft > 0 ? (
@@ -61,6 +61,7 @@ const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKey
                     onClick={() => {
                         setIsVisible(false);
                         props.showGameOverModal();
+                        props.onContinue(props.finalBlackKeysClicked, 0);
                     }}
                 />
             )}
