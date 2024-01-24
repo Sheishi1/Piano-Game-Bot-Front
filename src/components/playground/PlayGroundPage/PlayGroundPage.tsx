@@ -17,7 +17,7 @@ const generateRow = (isGreen = false) => {
 
 const calculateInitialRows = () => {
     const screenHeight = window.innerHeight;
-    const keyHeight = 200;
+    const keyHeight = 250;
     const numRows = Math.ceil(screenHeight / keyHeight);
     return [...Array.from({ length: numRows - 1 }, generateRow), new Array(4).fill('grey')];
 };
@@ -31,9 +31,9 @@ const Key = React.memo(({ color, onClick, pressed }) => {
 });
 
 // @ts-ignore
-const KeyRow = React.memo(({ row, onClick, rowIndex }) => {
+const KeyRow = React.memo(({ row, onClick, rowIndex, isTopRow }) => {
     return (
-        <div className="key-row">
+        <div className={`key-row ${isTopRow ? 'top-row' : ''}`}>
             {row.map((key: { color: any; pressed: any; }, index: React.Key | null | undefined) => (
                 <Key key={index} //@ts-ignore
                      color={key.color} onClick={() => onClick(key.color, index, rowIndex)} pressed={key.pressed} />
@@ -50,7 +50,7 @@ const PlayGroundPage = (props: {userId: number | null}) => {
     const [keyRows, setKeyRows] = useState(calculateInitialRows());
     const [blackKeysClicked, setBlackKeysClicked] = useState(0);
     const [coins, setCoins] = useState(0);
-    const [initialTimer, setInitialTimer] = useState(20);
+    const [initialTimer, setInitialTimer] = useState(10);
     const [timer, setTimer] = useState(initialTimer);
     const [gameOver, setGameOver] = useState(false);
     const [greenRowPassed, setGreenRowPassed] = useState(false);
@@ -80,7 +80,7 @@ const PlayGroundPage = (props: {userId: number | null}) => {
                     setCrossings(oldCrossings => {
                         let newCrossings = oldCrossings + 1;
                         setTimer(initialTimer - newCrossings);
-                        setCoins(oldCoins => oldCoins + 1);
+                        setCoins(oldTimer => oldTimer + 5);
                         return newCrossings;
                     });
                     setGreenRowPassed(true);
@@ -164,8 +164,11 @@ const PlayGroundPage = (props: {userId: number | null}) => {
             <span className={'main__pointsCounter'}>{finalBlackKeysClicked}</span>
             {showModal && <GameOverModal userId={props.userId} restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
             {keyRowsReversed.map((row, index) => (
-                row[0].color === 'green' ? <GreenBar key={index} /> : <KeyRow key={index} //@ts-ignore
-                                                                              row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} />
+                <>
+                    <KeyRow key={index} //@ts-ignore
+                            row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} isTopRow={index === 0} />
+                    {(keyRows.length - index) % 10 === 0 && <GreenBar />}
+                </>
             ))}
         </div>
     );
