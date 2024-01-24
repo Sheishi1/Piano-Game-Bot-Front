@@ -39,7 +39,8 @@ const GameOverModal = ({userId, userHearts, finalBlackKeysClicked, restartGame, 
         <>
             <div className="modal-overlay"/>
             {userHearts > 0 && !showGameOverModal ? (
-                <NextGameBlock userId={userId} userHearts={userHearts} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} onContinue={(blackKeys: any, coins: any) => restartGame(blackKeys, coins)} />
+                <NextGameBlock userId={userId} userHearts={userHearts} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} onContinue={(blackKeys: any, coins: any) => restartGame(blackKeys, coins)} //@ts-ignore
+                               showGameOverModal={() => setShowGameOverModal(true)} />
             ) : (
                 <div className="main__gameOverModal">
                     <span className={`gameOverSpan`}>Игра окончена</span>

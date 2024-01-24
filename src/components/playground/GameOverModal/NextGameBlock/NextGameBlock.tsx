@@ -6,7 +6,7 @@ import heartSvgIcon from "../../../../assets/vectorImages/heart-svgrepo-com.svg"
 import closeSvgBtn from "../../../../assets/vectorImages/close-bold-svgrepo-com.svg";
 import "./NextGameBlock.css";
 
-const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKeysClicked: number, coins: number, onContinue: Function}) => {
+const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKeysClicked: number, coins: number, onContinue: Function, showGameOverModal: Function}) => {
     const [timeLeft, setTimeLeft] = useState(3);
     const [isVisible, setIsVisible] = useState(true);
 
@@ -60,6 +60,7 @@ const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKey
                     className={`closeNextBlock`}
                     onClick={() => {
                         setIsVisible(false);
+                        props.showGameOverModal();
                     }}
                 />
             )}
