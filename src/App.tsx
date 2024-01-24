@@ -39,7 +39,8 @@ function App() {
             <Route index element={ <WelcomePage userName={user?.username} coins={data?.coins!} points={data?.points!} /> } />
             <Route path={'playground'} element={ <PlayGroundPage userHearts={data?.hearts!} chosenThemeNumber={theme} userId={data?.userId!} /> } />
             <Route path={'rating'} element={ <RatingPage userId={data?.userId!} userName={data?.userName!} /> } />
-            <Route path={'shop'} element={ <ShopPage userId={data?.userId!} userName={data?.userName!} coins={data?.coins!} /> } />
+            <Route path={'shop'} element={ <ShopPage userId={data?.userId!} userName={data?.userName!} coins={data?.coins!} //@ts-ignore
+                                                     setTheme={setTheme} /> } />
         </Routes>
     </div>
   );

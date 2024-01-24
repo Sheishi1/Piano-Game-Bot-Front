@@ -18,6 +18,10 @@
     width: 100%;
 }
 
+.purchased .purchased {
+    border: 4px solid #fff;
+}
+
 .shopItem span {
     color: #ffffff;
     font-size: 18px;
