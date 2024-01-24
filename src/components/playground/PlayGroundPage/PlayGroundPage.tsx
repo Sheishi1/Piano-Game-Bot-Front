@@ -95,7 +95,7 @@ const PlayGroundPage = (props: {userId: number, userHearts: number, chosenThemeN
                     setCrossings(oldCrossings => {
                         let newCrossings = oldCrossings + 1;
                         setTimer(initialTimer - newCrossings);
-                        setCoins(oldTimer => oldTimer + 1);
+                        setCoins(oldCoins => oldCoins + 1);
                         return newCrossings;
                     });
                     setGreenRowPassed(true);
