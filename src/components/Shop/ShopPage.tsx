@@ -42,7 +42,6 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
     }, [props.userId]);
 
     const buyTheme = async (productId: number) => {
-        setIsLoading(true);
         try {
             const response = await axios.post(
                 'https://pianobot.dutx.site/api/shop/buyproduct',
@@ -56,10 +55,10 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
         } catch (e) {
             console.log(e)
             // @ts-ignore
-            if (e.response && e.response.data) {
+            if (e.response && e.response.data && e.response.data.message) {
                 // @ts-ignore
-                setErrorMessage(e.response.data);
-                setTimeout(() => setErrorMessage(null), 3000);
+                setErrorMessage(e.response.data.message);
+                setTimeout(() => setErrorMessage(null), 5000);
             }
         } finally {
             setIsLoading(false);
@@ -71,23 +70,20 @@ const ShopPage = (props: {userId: number, userName: string, coins: number, setTh
         props.setTheme(newTheme);
     };
 
-    if (isLoading) {
-        return <CircularProgress className={`CircularIndicator`} />;
-    }
-
-
-    if (errorMessage) {
-        return (
-            <div className={`errorMessage`}>
-                {errorMessage}
-            </div>
-        );
-    }
-
     return (
         <>
             <ShopHeader coins={props.coins} />
             <div className={`main__ShopPageBlock`}>
+                {
+                    isLoading && (
+                        <CircularProgress className={`CircularIndicator`} />
+                    )
+                }
+                {errorMessage && (
+                    <div className={`errorMessage`}>
+                        {errorMessage}
+                    </div>
+                )}
                 <div className="shopItem">
                     <span>1 оформление</span>
                     <img src={sevenShopItem} alt="firstItem"/>
