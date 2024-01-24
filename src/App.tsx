@@ -7,10 +7,12 @@ import WelcomePage from "./components/welcome/welcomePage/WelcomePage";
 import axios from "axios";
 import {UserData} from "./Models/UserData";
 import RatingPage from "./components/Rating/RatingPage";
+import ShopPage from "./components/Shop/ShopPage";
 
 function App() {
     const {tg, user} = useTelegram()
     const [data, setData] = useState<UserData | null>(null);
+    const [theme, setTheme] = useState(1);
 
     useEffect(() => {
         tg.ready()
@@ -33,8 +35,9 @@ function App() {
     <div className="App">
         <Routes>
             <Route index element={ <WelcomePage userName={user?.username} coins={data?.coins!} points={data?.points!} /> } />
-            <Route path={'playground'} element={ <PlayGroundPage userId={data?.userId!} /> } />
+            <Route path={'playground'} element={ <PlayGroundPage chosenThemeNumber={theme} userId={data?.userId!} /> } />
             <Route path={'rating'} element={ <RatingPage userId={data?.userId!} userName={data?.userName!} /> } />
+            <Route path={'shop'} element={ <ShopPage userId={data?.userId!} coins={data?.coins!} points={data?.points!} /> } />
         </Routes>
     </div>
   );

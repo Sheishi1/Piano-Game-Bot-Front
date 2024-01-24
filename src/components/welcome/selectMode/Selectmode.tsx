@@ -14,22 +14,24 @@ const Selectmode = () => {
         <div className={`main__selectModeBlock`}>
             <div className="selectModeBtnsBlock">
                 <span>Piano-Game</span>
-                <Link to="/playground">
+                <Link to="/playground" style={{textDecoration: 'none'}}>
                     <SelectModeBtn className={`selectModeBtn`}>
                         <img src={playSvgIcon} alt="play" style={{marginRight: 10}}/>
                         Играть
                     </SelectModeBtn>
                 </Link>
-                <Link to="/rating">
+                <Link to="/rating"  style={{textDecoration: 'none'}}>
                     <SelectModeBtn className={`selectModeBtn`}>
                         <img src={cupSvgIcon} alt="cup" style={{marginRight: 10}}/>
                         Рейтинг
                     </SelectModeBtn>
                 </Link>
-                <SelectModeBtn className={`selectModeBtn`}>
-                    <img src={shopSvgIcon} alt="shop" style={{marginRight: 10}}/>
-                    Магазин
-                </SelectModeBtn>
+                <Link to="/shop" style={{textDecoration: 'none'}}>
+                    <SelectModeBtn className={`selectModeBtn`}>
+                        <img src={shopSvgIcon} alt="shop" style={{marginRight: 10}}/>
+                        Магазин
+                    </SelectModeBtn>
+                </Link>
             </div>
         </div>
     );

@@ -37,6 +37,29 @@
     animation: pulse 0.4s ease;
 }
 
+.theme1 {
+    background-color: #ffffff;
+}
+
+.key-row.theme1 {
+    background-color: #ffffff;
+}
+
+.key.theme1 {
+    background-color: #ffffff;
+}
+
+.key-row.theme2 {
+    background-color: #BFFFA8;
+}
+
+.key.theme2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #BFFFA8;
+}
+
 .white {
     background: #fff;
 }
@@ -63,7 +86,6 @@
 }
 
 .green-bar {
-    position: absolute;
     height: 5px;
     background-color: green;
     width: 100%;

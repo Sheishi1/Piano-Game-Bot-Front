@@ -3,6 +3,12 @@ import "./PlayGroundStyles.css";
 import GameOverModal from "../GameOverModal/GameOverModal";
 import TimeBar from "../PlayGroundTimeBar/TimeBar";
 import { notes } from '../../../assets/PianoNoteSounds/notes';
+//@ts-ignore
+import svgCatKey from '../../../assets/ShopItems/keys/cat-face-svgrepo-com 1.png'
+//@ts-ignore
+import svgStarKey from '../../../assets/ShopItems/keys/star-svgrepo-com (3) 3.png'
+//@ts-ignore
+import svgSakuraKey from '../../../assets/ShopItems/keys/cherryblossom-svgrepo-com 3.png'
 
 const generateRow = (isGreen = false) => {
     if (isGreen) {
@@ -23,20 +29,24 @@ const calculateInitialRows = () => {
 };
 
 // @ts-ignore
-const Key = React.memo(({ color, onClick, pressed }) => {
+const Key = React.memo(({ color, onClick, pressed, theme }) => {
     const buttonColor = pressed ? 'grey' : color;
     return (
-        <button className={`key ${buttonColor}`} onClick={onClick} />
+        <button className={`key ${buttonColor} theme${theme}`} onClick={onClick}>
+            {theme === 2 && <img src={svgCatKey} alt="Theme image"/>}
+            {theme === 3 && <img src={svgSakuraKey} alt="Theme image"/>}
+            {theme === 4 && <img src={svgStarKey} alt="Theme image"/>}
+        </button>
     );
 });
 
 // @ts-ignore
-const KeyRow = React.memo(({ row, onClick, rowIndex, isTopRow }) => {
+const KeyRow = React.memo(({theme, row, onClick, rowIndex, isTopRow}) => {
     return (
-        <div className={`key-row ${isTopRow ? 'top-row' : ''}`}>
+        <div className={`key-row ${isTopRow ? 'top-row' : ''} theme${theme}`}>
             {row.map((key: { color: any; pressed: any; }, index: React.Key | null | undefined) => (
                 <Key key={index} //@ts-ignore
-                     color={key.color} onClick={() => onClick(key.color, index, rowIndex)} pressed={key.pressed} />
+                     color={key.color} onClick={() => onClick(key.color, index, rowIndex)} pressed={key.pressed} theme={theme} />
             ))}
         </div>
     );
@@ -45,7 +55,7 @@ const KeyRow = React.memo(({ row, onClick, rowIndex, isTopRow }) => {
 const GreenBar = () => <div className="green-bar" />;
 
 
-const PlayGroundPage = (props: {userId: number | null}) => {
+const PlayGroundPage = (props: {userId: number, chosenThemeNumber: number}) => {
     const [gameStarted, setGameStarted] = useState(false);
     const [keyRows, setKeyRows] = useState(calculateInitialRows());
     const [blackKeysClicked, setBlackKeysClicked] = useState(0);
@@ -135,8 +145,8 @@ const PlayGroundPage = (props: {userId: number | null}) => {
         if (gameOver) {
             setKeyRows(calculateInitialRows());
             setBlackKeysClicked(0);
-            setInitialTimer(20);
-            setTimer(20);
+            setInitialTimer(10);
+            setTimer(10);
             setCrossings(0);
             setGameStarted(false);
             setShowModal(true);
@@ -151,23 +161,25 @@ const PlayGroundPage = (props: {userId: number | null}) => {
     const restartGame = () => {
         setCoins(0);
         setFinalBlackKeysClicked(0);
+        setInitialTimer(10);
+        setTimer(10);
         setShowModal(false);
         setGameOver(false);
-        setKeyRows(calculateInitialRows()); // reset keyRows state
+        setKeyRows(calculateInitialRows());
     };
 
     const keyRowsReversed = useMemo(() => keyRows.slice().reverse(), [keyRows]);
 
     return (
-        <div className="main__playgroundBlock">
+        <div className={`main__playgroundBlock theme${props.chosenThemeNumber}`}>
             <TimeBar timer={timer} initialTimer={initialTimer} />
             <span className={'main__pointsCounter'}>{finalBlackKeysClicked}</span>
             {showModal && <GameOverModal userId={props.userId} restartGame={restartGame} finalBlackKeysClicked={finalBlackKeysClicked} coins={coins} />}
             {keyRowsReversed.map((row, index) => (
                 <>
                     <KeyRow key={index} //@ts-ignore
-                            row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} isTopRow={index === 0} />
-                    {(keyRows.length - index) % 10 === 0 && <GreenBar />}
+                            row={row} onClick={handleKeyClick} rowIndex={keyRows.length - index - 1} isTopRow={index === 0} theme={props.chosenThemeNumber} />
+                    {(keyRows.length - index) % 10 === 1 && <GreenBar />}
                 </>
             ))}
         </div>
