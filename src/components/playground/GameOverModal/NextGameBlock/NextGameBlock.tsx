@@ -60,7 +60,6 @@ const NextGameBlock = (props: {userId: number, userHearts: number, finalBlackKey
                     className={`closeNextBlock`}
                     onClick={() => {
                         setIsVisible(false);
-                        props.onContinue(props.finalBlackKeysClicked, props.coins);
                     }}
                 />
             )}
